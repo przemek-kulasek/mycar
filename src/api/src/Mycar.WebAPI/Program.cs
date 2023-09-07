@@ -6,9 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.RegisterSwagger();
 builder.Services.RegisterDependencyInjection();
 builder.Services.AddModules(builder.Configuration);
+builder.Services.AddHostedServices();
 
 var app = builder.Build();
 app.ConfigureSwagger();
 app.UseHttpsRedirection();
 app.MapCarsEndpoints();
+app.ConfigureMiddlewares();
 app.Run();

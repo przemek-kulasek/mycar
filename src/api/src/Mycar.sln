@@ -5,13 +5,15 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mycar.WebAPI", "Mycar.WebAPI\Mycar.WebAPI.csproj", "{075D81B0-87FE-4304-A061-2C1A811C2026}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mycar.Application", "Mycar.Application\Mycar.Application.csproj", "{46EB10A9-40E9-4FC3-A1E3-4816B93E38C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mycar.Application", "Mycar.Application\Mycar.Application.csproj", "{46EB10A9-40E9-4FC3-A1E3-4816B93E38C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mycar.Domain", "Mycar.Domain\Mycar.Domain.csproj", "{99283F18-4EA0-4564-8986-5CA44A91C208}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mycar.Domain", "Mycar.Domain\Mycar.Domain.csproj", "{99283F18-4EA0-4564-8986-5CA44A91C208}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mycar.Infrastructure", "Mycar.Infrastructure\Mycar.Infrastructure.csproj", "{D974F1C8-2D3B-4FF6-8365-A074E67FB3EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mycar.Infrastructure", "Mycar.Infrastructure\Mycar.Infrastructure.csproj", "{D974F1C8-2D3B-4FF6-8365-A074E67FB3EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mycar.Tests", "Mycar.Tests\Mycar.Tests.csproj", "{BE1BD9CB-C522-40DA-ADCD-5CE3AEFF1782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mycar.Tests", "Mycar.Tests\Mycar.Tests.csproj", "{BE1BD9CB-C522-40DA-ADCD-5CE3AEFF1782}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mycar.Common", "Mycar.Common\Mycar.Common.csproj", "{DC567391-9C49-4357-82F2-A07BD20E06A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BE1BD9CB-C522-40DA-ADCD-5CE3AEFF1782}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE1BD9CB-C522-40DA-ADCD-5CE3AEFF1782}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE1BD9CB-C522-40DA-ADCD-5CE3AEFF1782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC567391-9C49-4357-82F2-A07BD20E06A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC567391-9C49-4357-82F2-A07BD20E06A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC567391-9C49-4357-82F2-A07BD20E06A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC567391-9C49-4357-82F2-A07BD20E06A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

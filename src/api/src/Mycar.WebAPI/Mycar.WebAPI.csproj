@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mycar.Application\Mycar.Application.csproj" />
+    <ProjectReference Include="..\Mycar.Common\Mycar.Common.csproj" />
   </ItemGroup>
 
 </Project>
