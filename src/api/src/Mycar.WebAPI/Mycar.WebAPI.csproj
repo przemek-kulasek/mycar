@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Mycar.Application\Mycar.Application.csproj" />
     <ProjectReference Include="..\Mycar.Common\Mycar.Common.csproj" />
+    <ProjectReference Include="..\Mycar.Infrastructure\Mycar.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
