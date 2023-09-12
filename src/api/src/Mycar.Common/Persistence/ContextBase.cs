@@ -26,6 +26,16 @@ namespace Mycar.Common.Persistence
             await _databaseContext.AddRangeAsync(@object, cancellationToken);
         }
 
+        public void Remove(object @object)
+        {
+            _databaseContext.Remove(@object);
+        }
+
+        public void RemoveRange(IEnumerable<object> @object)
+        {
+            _databaseContext.RemoveRange(@object);
+        }
+
         public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
             await _databaseContext.SaveChangesAsync(cancellationToken);

@@ -9,6 +9,7 @@ namespace Mycar.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Car> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.IdentificationNumber);
             builder.HasQueryFilter(c => !c.IsDeleted);
         }
     }
