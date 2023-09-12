@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  # PostgreSQL service
+  postgres-mycar:
+    container_name: postgres-mycar
+    image: postgres
+    restart: no
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: FmsgpTU2KNKrXf0G3NkV
+      POSTGRES_DB: mycar
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # RabbitMQ service
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    restart: no
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbit
+      RABBITMQ_DEFAULT_PASS: 8Af8sesFcjZArD9bn4c9
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  # Mycar API
+  api:
+    container_name: mycar-api
+    image: mycar-api:local
+    build:
+      context: ./api/src/
+      dockerfile: Mycar.WebAPI/Dockerfile
+    ports:
+      - 9001:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    user: root
+    depends_on:
+      - postgres-mycar
+      - rabbitmq
+volumes:
+  postgres_data: {}
+networks:
+  mycar-net:
+    name: mycar-net
+    driver: bridge
