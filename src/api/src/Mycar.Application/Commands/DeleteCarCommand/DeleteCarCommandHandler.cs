@@ -33,6 +33,8 @@ namespace Mycar.Application.Commands.DeleteCarCommand
             _mycarContext.RemoveRange(cars);
             await _mycarContext.CommitAsync(cancellationToken);
             _logger.LogInformation("Car has been created. VIN: {IdentificationNumber}", request.Vin);
+
+            return;
         }
     }
 }

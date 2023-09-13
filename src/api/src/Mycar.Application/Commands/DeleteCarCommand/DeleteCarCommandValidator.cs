@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Mycar.Common.Extensions;
 
 namespace Mycar.Application.Commands.DeleteCarCommand
 {
@@ -6,7 +7,7 @@ namespace Mycar.Application.Commands.DeleteCarCommand
     {
         public DeleteCarCommandValidator()
         {
-            RuleFor(query => query.Vin).NotEmpty();
+            RuleFor(query => query.Vin).ValidVIN();
         }
     }
 }

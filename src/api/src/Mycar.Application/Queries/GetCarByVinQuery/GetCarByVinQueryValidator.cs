@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Mycar.Common.Extensions;
 
 namespace Mycar.Application.Queries.GetCarByVinQuery
 {
@@ -6,7 +7,7 @@ namespace Mycar.Application.Queries.GetCarByVinQuery
     {
         public GetCarByVinQueryValidator()
         {
-            RuleFor(query => query.IdentificationNumber).NotEmpty();
+            RuleFor(query => query.IdentificationNumber).ValidVIN();
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Mycar.Application.Commands.CreateCarCommand
 {
     public class CreateCarCommand : IRequest<string>
     {
-        public CarDto Car { get; set; }
+        public required CarDto Car { get; set; }
     }
 }
