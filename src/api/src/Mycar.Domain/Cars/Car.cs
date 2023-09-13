@@ -1,4 +1,5 @@
 ﻿using Mycar.Common.Types;
+using Mycar.Domain.Maintenance;
 
 namespace Mycar.Domain.Cars
 {
@@ -33,5 +34,7 @@ namespace Mycar.Domain.Cars
         public string? ColorDescription { get; private set; }
         public string? EngineDescription { get; private set; }
         public string? AdditionalDescription { get; private set; }
+
+        public ICollection<Operation>? Operations { get; private set; }
     }
 }
