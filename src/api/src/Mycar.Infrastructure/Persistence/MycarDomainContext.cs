@@ -1,6 +1,7 @@
 ﻿using Mycar.Common.Persistence;
 using Mycar.Domain;
 using Mycar.Domain.Cars;
+using Mycar.Domain.Maintenance;
 
 namespace Mycar.Infrastructure.Persistence
 {
@@ -9,6 +10,8 @@ namespace Mycar.Infrastructure.Persistence
         private readonly MycarDatabaseContext _databaseContext;
 
         public IQueryable<Car> Cars => _databaseContext.Cars;
+        public IQueryable<Operation> Operations => _databaseContext.Operations;
+        public IQueryable<Item> Items => _databaseContext.Items;
 
         public MycarDomainContext(MycarDatabaseContext databaseContext) : base(databaseContext)
         {

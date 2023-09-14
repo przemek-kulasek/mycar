@@ -10,6 +10,8 @@ namespace Mycar.Application.Mappers
         {
             CreateMap<CarDto, Car>();
             CreateMap<Car, CarDto>();
+
+            CreateMap<Car, CarHistoryDto>();
         }
     }
 }

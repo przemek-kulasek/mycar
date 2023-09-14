@@ -24,6 +24,7 @@ namespace Mycar.Domain.Cars
             ColorDescription = colorDescription;
             EngineDescription = engineDescription;
             AdditionalDescription = additionalDescription;
+            Operations = Array.Empty<Operation>();
         }
 
         public string IdentificationNumber { get; private set; }
@@ -35,6 +36,6 @@ namespace Mycar.Domain.Cars
         public string? EngineDescription { get; private set; }
         public string? AdditionalDescription { get; private set; }
 
-        public ICollection<Operation>? Operations { get; private set; }
+        public ICollection<Operation> Operations { get; private set; }
     }
 }

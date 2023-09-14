@@ -33,7 +33,7 @@ namespace Mycar.Application.Queries.GetCarByVinQuery
 
         private async Task<Car?> GetCarByVin(string vin, CancellationToken cancellationToken)
         {
-            return await _mycarContext.Cars.FirstOrDefaultAsync(x => x.IdentificationNumber == vin, cancellationToken: cancellationToken);
+            return await _mycarContext.Cars.AsNoTracking().FirstOrDefaultAsync(x => x.IdentificationNumber == vin, cancellationToken: cancellationToken);
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Mycar.Domain.Maintenance
         private Operation() : base(Guid.Empty)
         {
             Items = Array.Empty<Item>();
+            Description = string.Empty;
+            Car = new Car(Guid.Empty, string.Empty, string.Empty, string.Empty, 0, 0);
         }
 
         public Operation(Guid id, string description, OperationType operationType, int mileage, Guid carId, Car car = null!, ICollection<Item>? items = null)

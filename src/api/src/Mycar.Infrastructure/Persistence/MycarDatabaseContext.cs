@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Mycar.Common.Types.Abstractions;
 using Mycar.Domain.Cars;
+using Mycar.Domain.Maintenance;
 
 namespace Mycar.Infrastructure.Persistence;
 
 public class MycarDatabaseContext : DbContext
 {
     public DbSet<Car> Cars { get; set; } = null!;
+    public DbSet<Operation> Operations { get; set; } = null!;
+    public DbSet<Item> Items { get; set; } = null!;
 
     public MycarDatabaseContext(DbContextOptions options) : base(options) { }
 

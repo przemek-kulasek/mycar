@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mycar.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Mycar.Infrastructure.Migrations
 {
     [DbContext(typeof(MycarDatabaseContext))]
-    partial class MycarDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230914085050_quickFix")]
+    partial class quickFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +83,6 @@ namespace Mycar.Infrastructure.Migrations
             modelBuilder.Entity("Mycar.Domain.Maintenance.Item", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("CreatedByUserId")
@@ -109,8 +111,6 @@ namespace Mycar.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OperationId");
 
                     b.ToTable("Items");
                 });
@@ -160,7 +160,7 @@ namespace Mycar.Infrastructure.Migrations
                 {
                     b.HasOne("Mycar.Domain.Maintenance.Operation", "Operation")
                         .WithMany("Items")
-                        .HasForeignKey("OperationId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Operation");
