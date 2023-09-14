@@ -48,7 +48,7 @@ namespace Mycar.WebAPI.Endpoints
         private static async Task<IResult> Post(IMediator mediator, [AsParameters] CreateCarCommand command)
         {
             var result = await mediator.Send(command);
-            return Results.Ok(result);
+            return Results.Created("/Cars/", new { id = result });
         }
 
         private static async Task<IResult> Delete(IMediator mediator, [AsParameters] DeleteCarCommand command)

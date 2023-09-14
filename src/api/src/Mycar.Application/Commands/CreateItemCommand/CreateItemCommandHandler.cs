@@ -9,7 +9,7 @@ using Mycar.Domain.Maintenance;
 
 namespace Mycar.Application.Commands.CreateItemCommand
 {
-    public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand>
+    public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Guid>
     {
         private readonly IMycarContext _mycarContext;
         private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace Mycar.Application.Commands.CreateItemCommand
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task Handle(CreateItemCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateItemCommand request, CancellationToken cancellationToken)
         {
             var itemExists = await _mycarContext.Items.AnyAsync(x => x.Id == request.Item.Id, cancellationToken: cancellationToken);
 
@@ -35,7 +35,7 @@ namespace Mycar.Application.Commands.CreateItemCommand
             await _mycarContext.CommitAsync(cancellationToken);
             _logger.LogInformation("Item has been created. Id: {Id}", newItem.Id);
 
-            return;
+            return newItem.Id;
         }
     }
 }

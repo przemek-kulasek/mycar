@@ -8,7 +8,7 @@ using Mycar.Domain.Maintenance;
 
 namespace Mycar.Application.Commands.CreateOperationCommand
 {
-    public class CreateOperationCommandHandler : IRequestHandler<CreateOperationCommand>
+    public class CreateOperationCommandHandler : IRequestHandler<CreateOperationCommand, Guid>
     {
         private readonly IMycarContext _mycarContext;
         private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace Mycar.Application.Commands.CreateOperationCommand
             _logger = logger;
         }
 
-        public async Task Handle(CreateOperationCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateOperationCommand request, CancellationToken cancellationToken)
         {
             var operationExists = await _mycarContext.Operations.AnyAsync(x => x.Id == request.Operation.Id, cancellationToken: cancellationToken);
 
@@ -35,7 +35,7 @@ namespace Mycar.Application.Commands.CreateOperationCommand
             await _mycarContext.CommitAsync(cancellationToken);
             _logger.LogInformation("Operation has been created. Id: {Id}", newOperation.Id);
 
-            return;
+            return newOperation.Id;
         }
     }
 }

@@ -9,7 +9,7 @@ using Mycar.Domain.Cars;
 
 namespace Mycar.Application.Commands.CreateCarCommand
 {
-    public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, string>
+    public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, Guid>
     {
         private readonly IMycarContext _mycarContext;
         private readonly IMapper _mapper;
@@ -22,9 +22,9 @@ namespace Mycar.Application.Commands.CreateCarCommand
             _logger = logger;
         }
 
-        public async Task<string> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateCarCommand request, CancellationToken cancellationToken)
         {
-            var carExists = await _mycarContext.Cars.AnyAsync(x => x.IdentificationNumber == request.Car.IdentificationNumber, cancellationToken: cancellationToken);
+            var carExists = await _mycarContext.Cars.AnyAsync(x => x.IdentificationNumber == request.Car.IdentificationNumber || x.Id == request.Car.Id, cancellationToken: cancellationToken);
 
             if(carExists)
             {
@@ -34,9 +34,9 @@ namespace Mycar.Application.Commands.CreateCarCommand
             var newCar = _mapper.Map<Car>(request.Car);
             await _mycarContext.AddAsync(newCar, cancellationToken);
             await _mycarContext.CommitAsync(cancellationToken);
-            _logger.LogInformation("Car has been created. VIN: {IdentificationNumber}", newCar.IdentificationNumber);
+            _logger.LogInformation("Car has been created. VIN: {IdentificationNumber}, Id: {Id}", newCar.IdentificationNumber, newCar.Id);
 
-            return newCar.IdentificationNumber;
+            return newCar.Id;
         }
     }
 }

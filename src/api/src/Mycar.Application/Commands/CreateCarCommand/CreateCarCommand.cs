@@ -3,7 +3,7 @@ using Mycar.Application.Dtos;
 
 namespace Mycar.Application.Commands.CreateCarCommand
 {
-    public class CreateCarCommand : IRequest<string>
+    public class CreateCarCommand : IRequest<Guid>
     {
         public required CarDto Car { get; set; }
     }

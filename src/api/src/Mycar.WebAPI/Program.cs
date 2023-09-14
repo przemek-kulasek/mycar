@@ -12,5 +12,7 @@ var app = builder.Build();
 app.ConfigureSwagger();
 app.UseHttpsRedirection();
 app.MapCarsEndpoints();
+app.MapOperationsEndpoints();
+app.MapItemsEndpoints();
 app.ConfigureMiddlewares();
 app.Run();
