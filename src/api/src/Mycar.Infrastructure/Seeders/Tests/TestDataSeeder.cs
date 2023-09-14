@@ -12,16 +12,14 @@ namespace Mycar.Infrastructure.Seeders.Tests
     internal class TestDataSeeder : ITestDataSeeder
     {
         private readonly CarsTestData _carsTestData;
-        private readonly OperationsTestData _operationsTestData;
 
         private readonly MycarDatabaseContext _context;
         private readonly SeedersConfiguration _configuration;
 
-        public TestDataSeeder(CarsTestData carsTestData, OperationsTestData operationsTestData,
+        public TestDataSeeder(CarsTestData carsTestData,
             MycarDatabaseContext context, SeedersConfiguration configuration)
         {
             _carsTestData = carsTestData;
-            _operationsTestData = operationsTestData;
             _context = context;
             _configuration = configuration;
         }
@@ -29,9 +27,6 @@ namespace Mycar.Infrastructure.Seeders.Tests
         public async Task SeedAsync(CancellationToken cancellationToken = default)
         {
             await AddAsync(_carsTestData.Cars);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            await AddAsync(_operationsTestData.Operations);
             await _context.SaveChangesAsync(cancellationToken);
         }
 

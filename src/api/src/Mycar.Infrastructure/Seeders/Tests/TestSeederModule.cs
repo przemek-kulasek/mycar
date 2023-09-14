@@ -9,8 +9,7 @@ namespace Mycar.Infrastructure.Seeders.Tests
         {
             return services
                 .AddScoped<ITestDataSeeder, TestDataSeeder>()
-                .AddScoped<CarsTestData>()
-                .AddScoped<OperationsTestData>();
+                .AddScoped<CarsTestData>();
         }
     }
 }

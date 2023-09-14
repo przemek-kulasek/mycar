@@ -5,6 +5,14 @@ namespace Mycar.Domain.Cars
 {
     public class Car : BaseEntity
     {
+        public Car() : base(Guid.Empty)
+        {
+            IdentificationNumber = string.Empty;
+            Brand = string.Empty;
+            Model = string.Empty;
+            Operations = Array.Empty<Operation>();
+        }
+
         public Car(Guid id,
             string identificationNumber,
             string brand,
@@ -13,7 +21,8 @@ namespace Mycar.Domain.Cars
             int yearOfRegistration,
             string? colorDescription = null,
             string? engineDescription = null,
-            string? additionalDescription = null) 
+            string? additionalDescription = null,
+            ICollection<Operation>? operations = null) 
             : base(id)
         {
             IdentificationNumber = identificationNumber;
@@ -24,7 +33,7 @@ namespace Mycar.Domain.Cars
             ColorDescription = colorDescription;
             EngineDescription = engineDescription;
             AdditionalDescription = additionalDescription;
-            Operations = Array.Empty<Operation>();
+            Operations = operations ?? Array.Empty<Operation>();
         }
 
         public string IdentificationNumber { get; private set; }
