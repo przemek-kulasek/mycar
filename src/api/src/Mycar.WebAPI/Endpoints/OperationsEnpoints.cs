@@ -38,7 +38,7 @@ namespace Mycar.WebAPI.Endpoints
         private static async Task<IResult> Post(IMediator mediator, [AsParameters] CreateOperationCommand command)
         {
             var result = await mediator.Send(command);
-            return Results.Created($"/cars/{command.Operation.CarId}/operations", new { id = result });
+            return Results.Created($"/cars/{command.CarId}/operations/{result}", new { id = result });
         }
     }
 }

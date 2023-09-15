@@ -7,7 +7,7 @@ namespace Mycar.Application.Commands.DeleteCarCommand
     {
         public DeleteCarCommandValidator()
         {
-            RuleFor(query => query.Vin).ValidVIN();
+            RuleFor(query => query.Id).NotEmpty();
         }
     }
 }

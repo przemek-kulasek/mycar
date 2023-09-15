@@ -2,6 +2,7 @@
 using Mycar.Application.Commands.CreateCarCommand;
 using Mycar.Application.Commands.DeleteCarCommand;
 using Mycar.Application.Dtos;
+using Mycar.Application.Queries.GetAllCarsQuery;
 using Mycar.Application.Queries.GetCarByVinQuery;
 
 namespace Mycar.WebAPI.Endpoints
@@ -17,6 +18,14 @@ namespace Mycar.WebAPI.Endpoints
                 .Produces(StatusCodes.Status404NotFound)
                 .Produces(StatusCodes.Status500InternalServerError)
                 .WithName("GetCarByVin")
+                .WithOpenApi();
+
+            app.MapGet("/cars/", GetAllCars)
+                .Produces<ICollection<CarDto>>()
+                .Produces(StatusCodes.Status400BadRequest)
+                .Produces(StatusCodes.Status401Unauthorized)
+                .Produces(StatusCodes.Status500InternalServerError)
+                .WithName("GetAllCars")
                 .WithOpenApi();
 
             app.MapPost("/cars/", Post)
@@ -45,10 +54,16 @@ namespace Mycar.WebAPI.Endpoints
             return Results.Ok(result);
         }
 
+        private static async Task<IResult> GetAllCars(IMediator mediator, [AsParameters] GetAllCarsQuery query)
+        {
+            var result = await mediator.Send(query);
+            return Results.Ok(result);
+        }
+
         private static async Task<IResult> Post(IMediator mediator, [AsParameters] CreateCarCommand command)
         {
             var result = await mediator.Send(command);
-            return Results.Created("/Cars/", new { id = result });
+            return Results.Created($"/Cars/{result}", new { id = result });
         }
 
         private static async Task<IResult> Delete(IMediator mediator, [AsParameters] DeleteCarCommand command)

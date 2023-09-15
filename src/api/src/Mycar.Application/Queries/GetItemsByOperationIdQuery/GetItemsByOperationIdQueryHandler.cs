@@ -24,15 +24,15 @@ namespace Mycar.Application.Queries.GetItemsByOperationIdQuery
 
         public async Task<ICollection<ItemDto>> Handle(GetItemsByOperationIdQuery request, CancellationToken cancellationToken)
         {
-            var operations = await GeItemsByOperationId(request.OperationId, cancellationToken) ??
+            var operations = await GeItemsByOperationId(request.CarId, request.OperationId, cancellationToken) ??
                       throw new NotFoundException(nameof(Item), request.OperationId);
 
             return _mapper.Map<ICollection<ItemDto>>(operations);
         }
 
-        private async Task<ICollection<Item>> GeItemsByOperationId(Guid operationId, CancellationToken cancellationToken)
+        private async Task<ICollection<Item>> GeItemsByOperationId(Guid carId, Guid operationId, CancellationToken cancellationToken)
         {
-            return await _mycarContext.Items.AsNoTracking().Where(x => x.OperationId == operationId).ToListAsync(cancellationToken);
+            return await _mycarContext.Items.AsNoTracking().Where(x => x.Operation.Car.Id == carId && x.OperationId == operationId).ToListAsync(cancellationToken);
         }
     }
 }

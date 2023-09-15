@@ -23,16 +23,16 @@ namespace Mycar.Application.Commands.DeleteCarCommand
 
         public async Task Handle(DeleteCarCommand request, CancellationToken cancellationToken)
         {
-            var cars = _mycarContext.Cars.Where(x => x.IdentificationNumber == request.Vin);
+            var cars = _mycarContext.Cars.Where(x => x.Id == request.Id);
             
             if (!cars.Any()) 
             {
-                throw new NotFoundException("VIN", request.Vin);
+                throw new NotFoundException("VIN", request.Id);
             }
 
             _mycarContext.RemoveRange(cars);
             await _mycarContext.CommitAsync(cancellationToken);
-            _logger.LogInformation("Car has been created. VIN: {IdentificationNumber}", request.Vin);
+            _logger.LogInformation("Car has been created. Id: {Id}", request.Id);
 
             return;
         }

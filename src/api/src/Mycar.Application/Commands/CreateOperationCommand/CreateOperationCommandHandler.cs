@@ -23,7 +23,7 @@ namespace Mycar.Application.Commands.CreateOperationCommand
 
         public async Task<Guid> Handle(CreateOperationCommand request, CancellationToken cancellationToken)
         {
-            var operationExists = await _mycarContext.Operations.AnyAsync(x => x.Id == request.Operation.Id, cancellationToken: cancellationToken);
+            var operationExists = await _mycarContext.Operations.AnyAsync(x => x.CarId == request.CarId && x.Id == request.Operation.Id, cancellationToken: cancellationToken);
 
             if (operationExists)
             {

@@ -23,7 +23,7 @@ namespace Mycar.Application.Commands.CreateItemCommand
         }
         public async Task<Guid> Handle(CreateItemCommand request, CancellationToken cancellationToken)
         {
-            var itemExists = await _mycarContext.Items.AnyAsync(x => x.Id == request.Item.Id, cancellationToken: cancellationToken);
+            var itemExists = await _mycarContext.Items.AnyAsync(x => x.Operation.CarId == request.CarId && x.OperationId == request.OperationId && x.Id == request.Item.Id, cancellationToken: cancellationToken);
 
             if (itemExists)
             {

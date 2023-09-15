@@ -29,16 +29,16 @@ namespace Mycar.WebAPI.Endpoints
             return app;
         }
 
-        private static async Task<IResult> GetByOperationId(IMediator mediator, Guid carId, [AsParameters] GetItemsByOperationIdQuery query)
+        private static async Task<IResult> GetByOperationId(IMediator mediator, [AsParameters] GetItemsByOperationIdQuery query)
         {
             var result = await mediator.Send(query);
             return Results.Ok(result);
         }
 
-        private static async Task<IResult> Post(IMediator mediator, Guid carId, [AsParameters] CreateItemCommand command)
+        private static async Task<IResult> Post(IMediator mediator, [AsParameters] CreateItemCommand command)
         {
             var result = await mediator.Send(command);
-            return Results.Created($"/cars/{carId}/operations/{command.Item.OperationId}/items", new { id = result });
+            return Results.Created($"/cars/{command.CarId}/operations/{command.OperationId}/items/{result}", new { id = result });
         }
     }
 }
