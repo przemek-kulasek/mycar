@@ -1,5 +1,8 @@
-﻿namespace Mycar.Domain.Maintenance.Enums
+﻿using System.Text.Json.Serialization;
+
+namespace Mycar.Domain.Maintenance.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ItemType
     {
         General = 0,
