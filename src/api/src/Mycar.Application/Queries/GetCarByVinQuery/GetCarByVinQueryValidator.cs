@@ -7,7 +7,7 @@ namespace Mycar.Application.Queries.GetCarByVinQuery
     {
         public GetCarByVinQueryValidator()
         {
-            RuleFor(query => query.IdentificationNumber).ValidVIN();
+            RuleFor(query => query.IdentificationNumber).ValidVin();
         }
     }
 }

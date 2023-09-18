@@ -8,7 +8,7 @@ namespace Mycar.Domain.Maintenance
         private Item() : base(Guid.Empty)
         {
             Description = string.Empty;
-            Operation = new Operation(Guid.Empty, string.Empty, OperationType.SelfMaintanance, 0, Guid.Empty);
+            Operation = new Operation(Guid.Empty, string.Empty, OperationType.SelfMaintenance, 0, Guid.Empty);
         }
 
         public Item(Guid id, string description, ItemType itemType, Guid operationId, Operation operation = null!) 

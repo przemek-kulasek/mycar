@@ -5,7 +5,7 @@ namespace Mycar.Domain.Maintenance.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum OperationType
     {
-        SelfMaintanance = 0,
+        SelfMaintenance = 0,
         ExternalShop = 1
     }
 }

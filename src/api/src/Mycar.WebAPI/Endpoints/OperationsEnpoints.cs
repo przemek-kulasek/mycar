@@ -5,7 +5,7 @@ using Mycar.Application.Queries.GetOperationsByCarIdQuery;
 
 namespace Mycar.WebAPI.Endpoints
 {
-    public static class OperationsEnpoints
+    public static class OperationsEndpoints
     {
         public static WebApplication MapOperationsEndpoints(this WebApplication app)
         {

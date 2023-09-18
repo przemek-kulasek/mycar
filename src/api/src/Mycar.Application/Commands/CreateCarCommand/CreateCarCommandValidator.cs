@@ -9,7 +9,7 @@ namespace Mycar.Application.Commands.CreateCarCommand
         {
             RuleFor(query => query.Car).NotNull();
             RuleFor(query => query.Car.Id).NotEmpty();
-            RuleFor(query => query.Car.IdentificationNumber).ValidVIN();
+            RuleFor(query => query.Car.IdentificationNumber).ValidVin();
             RuleFor(query => query.Car.Brand).NotEmpty();
             RuleFor(query => query.Car.Model).NotEmpty();
             RuleFor(query => query.Car.YearOfProduction).GreaterThan(1900);
