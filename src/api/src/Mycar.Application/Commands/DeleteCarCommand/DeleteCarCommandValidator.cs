@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Mycar.Common.Extensions;
 
 namespace Mycar.Application.Commands.DeleteCarCommand
 {

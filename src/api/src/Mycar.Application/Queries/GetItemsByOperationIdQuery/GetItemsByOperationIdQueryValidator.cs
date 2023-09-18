@@ -1,6 +1,13 @@
-﻿namespace Mycar.Application.Queries.GetItemsByOperationIdQuery
+﻿using FluentValidation;
+
+namespace Mycar.Application.Queries.GetItemsByOperationIdQuery
 {
-    internal class GetItemsByOperationIdQueryValidator
+    public class GetItemsByOperationIdQueryValidator : AbstractValidator<GetItemsByOperationIdQuery>
     {
+        public GetItemsByOperationIdQueryValidator() 
+        {
+            RuleFor(query => query.CarId).NotEmpty();
+            RuleFor(query => query.OperationId).NotEmpty();
+        }
     }
 }

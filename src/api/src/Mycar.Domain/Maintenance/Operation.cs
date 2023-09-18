@@ -8,7 +8,7 @@ namespace Mycar.Domain.Maintenance
     {
         private Operation() : base(Guid.Empty)
         {
-            Items = Array.Empty<Item>();
+            Items = new List<Item>();
             Description = string.Empty;
             Car = new Car(Guid.Empty, string.Empty, string.Empty, string.Empty, 0, 0);
         }
@@ -21,14 +21,14 @@ namespace Mycar.Domain.Maintenance
             Mileage = mileage;
             CarId = carId;
             Car = car;
-            Items = items ?? Array.Empty<Item>();
+            Items = items ?? new List<Item>();
         }
 
         public string Description { get; private set; }
         public OperationType OperationType { get; private set; }
         public int Mileage { get; private set; }
         
-        public ICollection<Item>? Items { get; private set; }
+        public ICollection<Item> Items { get; private set; }
         
         public Guid CarId { get; private set; }
         public Car Car { get; private set; }

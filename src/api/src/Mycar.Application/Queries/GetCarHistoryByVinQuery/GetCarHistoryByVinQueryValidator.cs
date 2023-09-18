@@ -1,6 +1,13 @@
-﻿namespace Mycar.Application.Queries.GetCarHistoryByVinQuery
+﻿using FluentValidation;
+using Mycar.Common.Extensions;
+
+namespace Mycar.Application.Queries.GetCarHistoryByVinQuery
 {
-    internal class GetCarHistoryByVinQueryValidator
+    public class GetCarHistoryByVinQueryValidator : AbstractValidator<GetCarHistoryByVinQuery>
     {
+        public GetCarHistoryByVinQueryValidator()
+        {
+            RuleFor(query => query.Vin).ValidVIN();
+        }
     }
 }

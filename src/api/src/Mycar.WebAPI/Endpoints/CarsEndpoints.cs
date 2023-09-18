@@ -4,6 +4,7 @@ using Mycar.Application.Commands.DeleteCarCommand;
 using Mycar.Application.Dtos;
 using Mycar.Application.Queries.GetAllCarsQuery;
 using Mycar.Application.Queries.GetCarByVinQuery;
+using Mycar.Application.Queries.GetCarHistoryByVinQuery;
 
 namespace Mycar.WebAPI.Endpoints
 {
@@ -18,6 +19,15 @@ namespace Mycar.WebAPI.Endpoints
                 .Produces(StatusCodes.Status404NotFound)
                 .Produces(StatusCodes.Status500InternalServerError)
                 .WithName("GetCarByVin")
+                .WithOpenApi();
+
+            app.MapGet("/cars/{IdentificationNumber}/history", GetHistoryByVin)
+                .Produces<CarDto>()
+                .Produces(StatusCodes.Status400BadRequest)
+                .Produces(StatusCodes.Status401Unauthorized)
+                .Produces(StatusCodes.Status404NotFound)
+                .Produces(StatusCodes.Status500InternalServerError)
+                .WithName("GetCarHistoryByVin")
                 .WithOpenApi();
 
             app.MapGet("/cars/", GetAllCars)
@@ -49,6 +59,12 @@ namespace Mycar.WebAPI.Endpoints
         }
 
         private static async Task<IResult> GetByVin(IMediator mediator, [AsParameters] GetCarByVinQuery query)
+        {
+            var result = await mediator.Send(query);
+            return Results.Ok(result);
+        }
+
+        private static async Task<IResult> GetHistoryByVin(IMediator mediator, [AsParameters] GetCarHistoryByVinQuery query)
         {
             var result = await mediator.Send(query);
             return Results.Ok(result);

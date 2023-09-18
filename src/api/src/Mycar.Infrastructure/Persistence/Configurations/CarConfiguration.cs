@@ -15,7 +15,6 @@ namespace Mycar.Infrastructure.Persistence.Configurations
             builder.HasMany(x => x.Operations)
                 .WithOne(x => x.Car)
                 .HasForeignKey(x => x.CarId)
-                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

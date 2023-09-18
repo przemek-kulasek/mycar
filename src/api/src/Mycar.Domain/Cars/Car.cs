@@ -10,7 +10,7 @@ namespace Mycar.Domain.Cars
             IdentificationNumber = string.Empty;
             Brand = string.Empty;
             Model = string.Empty;
-            Operations = Array.Empty<Operation>();
+            Operations = new List<Operation>();
         }
 
         public Car(Guid id,
@@ -33,7 +33,7 @@ namespace Mycar.Domain.Cars
             ColorDescription = colorDescription;
             EngineDescription = engineDescription;
             AdditionalDescription = additionalDescription;
-            Operations = operations ?? Array.Empty<Operation>();
+            Operations = operations ?? new List<Operation>();
         }
 
         public string IdentificationNumber { get; private set; }

@@ -11,7 +11,8 @@ namespace Mycar.Application.Mappers
             CreateMap<CarDto, Car>();
             CreateMap<Car, CarDto>();
 
-            CreateMap<Car, CarHistoryDto>();
+            CreateMap<Car, CarHistoryDto>()
+                .ForMember(dest => dest.Car, opt => opt.MapFrom(source => source));
         }
     }
 }
