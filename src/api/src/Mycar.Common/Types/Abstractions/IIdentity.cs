@@ -1,7 +1,6 @@
-﻿namespace Mycar.Common.Types.Abstractions
+﻿namespace Mycar.Common.Types.Abstractions;
+
+public interface IIdentity
 {
-    public interface IIdentity
-    {
-        public Guid Id { get; set; }
-    }
+    public Guid Id { get; set; }
 }

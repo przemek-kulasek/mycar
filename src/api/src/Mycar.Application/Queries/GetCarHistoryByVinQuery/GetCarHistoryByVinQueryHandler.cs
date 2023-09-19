@@ -8,40 +8,40 @@ using Mycar.Common.Exceptions;
 using Mycar.Domain;
 using Mycar.Domain.Cars;
 
-namespace Mycar.Application.Queries.GetCarHistoryByVinQuery
+namespace Mycar.Application.Queries.GetCarHistoryByVinQuery;
+
+public class GetCarHistoryByVinQueryHandler : IRequestHandler<GetCarHistoryByVinQuery, CarHistoryDto>
 {
-    public class GetCarHistoryByVinQueryHandler : IRequestHandler<GetCarHistoryByVinQuery, CarHistoryDto>
+    private readonly ILogger<GetItemsByOperationIdQueryHandler> _logger;
+    private readonly IMapper _mapper;
+    private readonly IMycarContext _mycarContext;
+
+    public GetCarHistoryByVinQueryHandler(IMycarContext mycarContext, IMapper mapper,
+        ILogger<GetItemsByOperationIdQueryHandler> logger)
     {
-        private readonly IMycarContext _mycarContext;
-        private readonly IMapper _mapper;
-        private readonly ILogger<GetItemsByOperationIdQueryHandler> _logger;
+        _mycarContext = mycarContext;
+        _mapper = mapper;
+        _logger = logger;
+    }
 
-        public GetCarHistoryByVinQueryHandler(IMycarContext mycarContext, IMapper mapper, ILogger<GetItemsByOperationIdQueryHandler> logger)
-        {
-            _mycarContext = mycarContext;
-            _mapper = mapper;
-            _logger = logger;
-        }
+    public async Task<CarHistoryDto> Handle(GetCarHistoryByVinQuery request, CancellationToken cancellationToken)
+    {
+        var carWithHistory = await GetCarWithHistory(request.Vin, cancellationToken) ??
+                             throw new NotFoundException(nameof(Car), request.Vin);
 
-        public async Task<CarHistoryDto> Handle(GetCarHistoryByVinQuery request, CancellationToken cancellationToken)
-        {
-            var carWithHistory = await GetCarWithHistory(request.Vin, cancellationToken) ??
-                      throw new NotFoundException(nameof(Car), request.Vin);
+        return _mapper.Map<CarHistoryDto>(carWithHistory);
+    }
 
-            return _mapper.Map<CarHistoryDto>(carWithHistory);
-        }
-
-        private async Task<Car?> GetCarWithHistory(string vin, CancellationToken cancellationToken)
-        {
-            var carWithHistory = 
-                await _mycarContext.Cars
+    private async Task<Car?> GetCarWithHistory(string vin, CancellationToken cancellationToken)
+    {
+        var carWithHistory =
+            await _mycarContext.Cars
                 .Where(x => x.IdentificationNumber == vin)
                 .Include(x => x.Operations)
                 .ThenInclude(x => x.Items)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+                .FirstOrDefaultAsync(cancellationToken);
 
-            return carWithHistory;
-        }
+        return carWithHistory;
     }
 }

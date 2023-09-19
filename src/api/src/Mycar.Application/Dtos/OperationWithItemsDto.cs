@@ -1,7 +1,6 @@
-﻿namespace Mycar.Application.Dtos
+﻿namespace Mycar.Application.Dtos;
+
+public class OperationWithItemsDto : OperationDto
 {
-    public class OperationWithItemsDto : OperationDto
-    {
-        public ICollection<ItemDto>? Items { get; set; }
-    }
+    public ICollection<ItemDto>? Items { get; set; }
 }

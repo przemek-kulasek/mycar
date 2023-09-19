@@ -8,32 +8,34 @@ using Mycar.Common.Exceptions;
 using Mycar.Domain;
 using Mycar.Domain.Maintenance;
 
-namespace Mycar.Application.Queries.GetOperationsByCarIdQuery
+namespace Mycar.Application.Queries.GetOperationsByCarIdQuery;
+
+public class GetOperationsByCarIdQueryHandler : IRequestHandler<GetOperationsByCarIdQuery, ICollection<OperationDto>>
 {
-    public class GetOperationsByCarIdQueryHandler : IRequestHandler<GetOperationsByCarIdQuery, ICollection<OperationDto>>
+    private readonly ILogger<GetCarByVinQueryHandler> _logger;
+    private readonly IMapper _mapper;
+    private readonly IMycarContext _mycarContext;
+
+    public GetOperationsByCarIdQueryHandler(IMycarContext mycarContext, IMapper mapper,
+        ILogger<GetCarByVinQueryHandler> logger)
     {
-        private readonly IMycarContext _mycarContext;
-        private readonly IMapper _mapper;
-        private readonly ILogger<GetCarByVinQueryHandler> _logger;
+        _mycarContext = mycarContext;
+        _mapper = mapper;
+        _logger = logger;
+    }
 
-        public GetOperationsByCarIdQueryHandler(IMycarContext mycarContext, IMapper mapper, ILogger<GetCarByVinQueryHandler> logger)
-        {
-            _mycarContext = mycarContext;
-            _mapper = mapper;
-            _logger = logger;
-        }
+    public async Task<ICollection<OperationDto>> Handle(GetOperationsByCarIdQuery request,
+        CancellationToken cancellationToken)
+    {
+        var operations = await GeOperationsByCarId(request.CarId, cancellationToken) ??
+                         throw new NotFoundException(nameof(Operation), request.CarId);
 
-        public async Task<ICollection<OperationDto>> Handle(GetOperationsByCarIdQuery request, CancellationToken cancellationToken)
-        {
-            var operations = await GeOperationsByCarId(request.CarId, cancellationToken) ??
-                      throw new NotFoundException(nameof(Operation), request.CarId);
+        return _mapper.Map<ICollection<OperationDto>>(operations);
+    }
 
-            return _mapper.Map<ICollection<OperationDto>>(operations);
-        }
-
-        private async Task<ICollection<Operation>> GeOperationsByCarId(Guid carId, CancellationToken cancellationToken)
-        {
-            return await _mycarContext.Operations.AsNoTracking().Where(x => x.CarId == carId).ToListAsync(cancellationToken);
-        }
+    private async Task<ICollection<Operation>> GeOperationsByCarId(Guid carId, CancellationToken cancellationToken)
+    {
+        return await _mycarContext.Operations.AsNoTracking().Where(x => x.CarId == carId)
+            .ToListAsync(cancellationToken);
     }
 }

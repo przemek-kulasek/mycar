@@ -1,12 +1,11 @@
-﻿namespace Mycar.Infrastructure.Seeders
-{
-    public class SeedersConfiguration
-    {
-        public TestConfiguration Test { get; set; } = null!;
-    }
+﻿namespace Mycar.Infrastructure.Seeders;
 
-    public class TestConfiguration
-    {
-        public bool Enabled { get; set; }
-    }
+public class SeedersConfiguration
+{
+    public TestConfiguration Test { get; set; } = null!;
+}
+
+public class TestConfiguration
+{
+    public bool Enabled { get; set; }
 }

@@ -2,14 +2,13 @@
 using Mycar.Application.Dtos;
 using Mycar.Domain.Maintenance;
 
-namespace Mycar.Application.Mappers
+namespace Mycar.Application.Mappers;
+
+public class ItemMapperProfile : Profile
 {
-    public class ItemMapperProfile : Profile
+    public ItemMapperProfile()
     {
-        public ItemMapperProfile() 
-        {
-            CreateMap<ItemDto, Item>();
-            CreateMap<Item, ItemDto>();
-        }
+        CreateMap<ItemDto, Item>();
+        CreateMap<Item, ItemDto>();
     }
 }

@@ -1,13 +1,12 @@
 ﻿using FluentValidation;
 using Mycar.Common.Extensions;
 
-namespace Mycar.Application.Queries.GetCarByVinQuery
+namespace Mycar.Application.Queries.GetCarByVinQuery;
+
+public class GetCarByVinQueryValidator : AbstractValidator<GetCarByVinQuery>
 {
-    public class GetCarByVinQueryValidator : AbstractValidator<GetCarByVinQuery>
+    public GetCarByVinQueryValidator()
     {
-        public GetCarByVinQueryValidator()
-        {
-            RuleFor(query => query.IdentificationNumber).ValidVin();
-        }
+        RuleFor(query => query.IdentificationNumber).ValidVin();
     }
 }

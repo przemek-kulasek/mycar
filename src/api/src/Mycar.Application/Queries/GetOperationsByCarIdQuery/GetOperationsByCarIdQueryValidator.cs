@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 
-namespace Mycar.Application.Queries.GetOperationsByCarIdQuery
+namespace Mycar.Application.Queries.GetOperationsByCarIdQuery;
+
+public class GetOperationsByCarIdQueryValidator : AbstractValidator<GetOperationsByCarIdQuery>
 {
-    public class GetOperationsByCarIdQueryValidator : AbstractValidator<GetOperationsByCarIdQuery>
+    public GetOperationsByCarIdQueryValidator()
     {
-        public GetOperationsByCarIdQueryValidator() 
-        {
-            RuleFor(query => query.CarId).NotEmpty();
-        }
+        RuleFor(query => query.CarId).NotEmpty();
     }
 }

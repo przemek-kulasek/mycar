@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 
-namespace Mycar.Application.Commands.DeleteCarCommand
+namespace Mycar.Application.Commands.DeleteCarCommand;
+
+public class DeleteCarCommandValidator : AbstractValidator<DeleteCarCommand>
 {
-    public class DeleteCarCommandValidator : AbstractValidator<DeleteCarCommand>
+    public DeleteCarCommandValidator()
     {
-        public DeleteCarCommandValidator()
-        {
-            RuleFor(query => query.Id).NotEmpty();
-        }
+        RuleFor(query => query.Id).NotEmpty();
     }
 }

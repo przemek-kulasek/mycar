@@ -1,10 +1,9 @@
 ﻿using MediatR;
 using Mycar.Application.Dtos;
 
-namespace Mycar.Application.Queries.GetCarHistoryByVinQuery
+namespace Mycar.Application.Queries.GetCarHistoryByVinQuery;
+
+public class GetCarHistoryByVinQuery : IRequest<CarHistoryDto>
 {
-    public class GetCarHistoryByVinQuery : IRequest<CarHistoryDto>
-    {
-        public required string Vin { get; set; }
-    }
+    public required string Vin { get; set; }
 }
