@@ -4,11 +4,10 @@
     {
         public static WebApplication ConfigureSwagger(this WebApplication application)
         {
-            if(application.Environment.IsDevelopment())
-            {
-                application.UseSwagger();
-                application.UseSwaggerUI();
-            }
+            if (!application.Environment.IsDevelopment()) return application;
+            
+            application.UseSwagger();
+            application.UseSwaggerUI();
 
             return application;
         }

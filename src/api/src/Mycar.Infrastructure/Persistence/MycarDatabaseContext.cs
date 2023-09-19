@@ -58,11 +58,10 @@ public class MycarDatabaseContext : DbContext
             entry.State = EntityState.Modified;
             ((ISoftDelete)entry.Entity).IsDeleted = true;
 
-            if (entry.Entity is IAudit audit)
-            {
-                audit.LastModifiedDate = DateTime.UtcNow;
-                audit.LastModifiedUserId = currentUserId;
-            }
+            if (entry.Entity is not IAudit audit) continue;
+            
+            audit.LastModifiedDate = DateTime.UtcNow;
+            audit.LastModifiedUserId = currentUserId;
         }
     }
 }

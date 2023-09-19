@@ -6,7 +6,7 @@ namespace Mycar.Common.Persistence
     {
         private readonly DbContext _databaseContext;
 
-        public ContextBase(DbContext databaseContext)
+        protected ContextBase(DbContext databaseContext)
         {
             _databaseContext = databaseContext;
         }

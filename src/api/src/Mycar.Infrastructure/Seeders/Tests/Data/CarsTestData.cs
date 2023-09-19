@@ -6,7 +6,7 @@ namespace Mycar.Infrastructure.Seeders.Tests.Data
 {
     public class CarsTestData
     {
-        public Car[] Cars => new[]
+        public static Car[] Cars => new[]
         {
             new Car(
                 new Guid("45ce2cbf-1146-4329-b605-aa2b9fc8934e"),

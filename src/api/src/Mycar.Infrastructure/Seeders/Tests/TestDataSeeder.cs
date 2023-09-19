@@ -26,11 +26,11 @@ namespace Mycar.Infrastructure.Seeders.Tests
 
         public async Task SeedAsync(CancellationToken cancellationToken = default)
         {
-            await AddAsync(_carsTestData.Cars);
+            await AddAsync(CarsTestData.Cars);
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        protected async Task AddAsync<TModel>(params TModel[] entities)
+        private async Task AddAsync<TModel>(params TModel[] entities)
             where TModel : class, IIdentity
         {
             var ids = entities.Select(x => x.Id);
