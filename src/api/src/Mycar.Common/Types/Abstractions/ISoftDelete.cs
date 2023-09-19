@@ -1,7 +1,6 @@
-﻿namespace Mycar.Common.Types.Abstractions
+﻿namespace Mycar.Common.Types.Abstractions;
+
+public interface ISoftDelete
 {
-    public interface ISoftDelete
-    {
-        public bool IsDeleted { get; set; }
-    }
+    public bool IsDeleted { get; set; }
 }

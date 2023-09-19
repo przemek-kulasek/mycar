@@ -1,14 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Mycar.Common.Types.Abstractions;
 using Mycar.Domain.Cars;
+using Mycar.Domain.Maintenance;
 
 namespace Mycar.Infrastructure.Persistence;
 
 public class MycarDatabaseContext : DbContext
 {
-    public DbSet<Car> Cars { get; set; } = null!;
+    public MycarDatabaseContext(DbContextOptions options) : base(options)
+    {
+    }
 
-    public MycarDatabaseContext(DbContextOptions options) : base(options) { }
+    public DbSet<Car> Cars { get; set; } = null!;
+    public DbSet<Operation> Operations { get; set; } = null!;
+    public DbSet<Item> Items { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -55,11 +60,10 @@ public class MycarDatabaseContext : DbContext
             entry.State = EntityState.Modified;
             ((ISoftDelete)entry.Entity).IsDeleted = true;
 
-            if (entry.Entity is IAudit audit)
-            {
-                audit.LastModifiedDate = DateTime.UtcNow;
-                audit.LastModifiedUserId = currentUserId;
-            }
+            if (entry.Entity is not IAudit audit) continue;
+
+            audit.LastModifiedDate = DateTime.UtcNow;
+            audit.LastModifiedUserId = currentUserId;
         }
     }
 }

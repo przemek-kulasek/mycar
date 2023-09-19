@@ -3,17 +3,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Mycar.Common.Extensions;
 using Mycar.Infrastructure.Seeders.Tests;
 
-namespace Mycar.Infrastructure.Seeders
+namespace Mycar.Infrastructure.Seeders;
+
+public static class SeedersModule
 {
-    public static class SeedersModule
+    public static IServiceCollection AddSeedersModule(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-        public static IServiceCollection AddSeedersModule(
-            this IServiceCollection services,
-            IConfiguration configuration)
-        {
-            return services
-                .AddConfiguration<SeedersConfiguration>(configuration)
-                .AddTestSeederModule();
-        }
+        return services
+            .AddConfiguration<SeedersConfiguration>(configuration)
+            .AddTestSeederModule();
     }
 }

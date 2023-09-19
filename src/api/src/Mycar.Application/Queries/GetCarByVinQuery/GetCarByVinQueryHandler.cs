@@ -7,33 +7,33 @@ using Mycar.Common.Exceptions;
 using Mycar.Domain;
 using Mycar.Domain.Cars;
 
-namespace Mycar.Application.Queries.GetCarByVinQuery
+namespace Mycar.Application.Queries.GetCarByVinQuery;
+
+public class GetCarByVinQueryHandler : IRequestHandler<GetCarByVinQuery, CarDto>
 {
-    public class GetCarByVinQueryHandler : IRequestHandler<GetCarByVinQuery, CarDto>
+    private readonly ILogger<GetCarByVinQueryHandler> _logger;
+    private readonly IMapper _mapper;
+    private readonly IMycarContext _mycarContext;
+
+
+    public GetCarByVinQueryHandler(IMycarContext mycarContext, IMapper mapper, ILogger<GetCarByVinQueryHandler> logger)
     {
-        private readonly IMycarContext _mycarContext;
-        private readonly IMapper _mapper;
-        private readonly ILogger<GetCarByVinQueryHandler> _logger;
+        _mycarContext = mycarContext;
+        _mapper = mapper;
+        _logger = logger;
+    }
 
+    public async Task<CarDto> Handle(GetCarByVinQuery request, CancellationToken cancellationToken)
+    {
+        var car = await GetCarByVin(request.IdentificationNumber, cancellationToken) ??
+                  throw new NotFoundException(nameof(Car), request.IdentificationNumber);
 
-        public GetCarByVinQueryHandler(IMycarContext mycarContext, IMapper mapper, ILogger<GetCarByVinQueryHandler> logger)
-        {
-            _mycarContext = mycarContext;
-            _mapper = mapper;
-            _logger = logger;
-        }
+        return _mapper.Map<CarDto>(car);
+    }
 
-        public async Task<CarDto> Handle(GetCarByVinQuery request, CancellationToken cancellationToken)
-        {
-            var car = await GetCarByVin(request.IdentificationNumber, cancellationToken) ??
-                      throw new NotFoundException(nameof(Car), request.IdentificationNumber);
-
-            return _mapper.Map<CarDto>(car);
-        }
-
-        private async Task<Car?> GetCarByVin(string vin, CancellationToken cancellationToken)
-        {
-            return await _mycarContext.Cars.FirstOrDefaultAsync(x => x.IdentificationNumber == vin, cancellationToken: cancellationToken);
-        }
+    private async Task<Car?> GetCarByVin(string vin, CancellationToken cancellationToken)
+    {
+        return await _mycarContext.Cars.AsNoTracking()
+            .FirstOrDefaultAsync(x => x.IdentificationNumber == vin, cancellationToken);
     }
 }

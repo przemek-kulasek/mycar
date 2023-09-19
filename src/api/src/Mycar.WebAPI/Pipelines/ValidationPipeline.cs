@@ -1,33 +1,33 @@
 ﻿using FluentValidation;
 using MediatR;
 
-namespace Mycar.WebAPI.Pipelines
+namespace Mycar.WebAPI.Pipelines;
+
+public class ValidationPipeline<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
 {
-    public class ValidationPipeline<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+    private readonly IEnumerable<IValidator<TRequest>> _validators;
+
+    public ValidationPipeline(IEnumerable<IValidator<TRequest>> validators)
     {
-        private readonly IEnumerable<IValidator<TRequest>> _validators;
+        _validators = validators;
+    }
 
-        public ValidationPipeline(IEnumerable<IValidator<TRequest>> validators)
-        {
-            _validators = validators;
-        }
+    public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
+    {
+        if (!_validators.Any()) return next();
 
-        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
-        {
-            if (!_validators.Any()) return next();
+        var validationContext = new ValidationContext<TRequest>(request);
 
-            var validationContext = new ValidationContext<TRequest>(request);
+        var failures = _validators
+            .Select(validator => validator.Validate(validationContext))
+            .SelectMany(result => result.Errors)
+            .Where(f => f != null)
+            .ToList();
 
-            var failures = _validators
-                .Select(validator => validator.Validate(validationContext))
-                .SelectMany(result => result.Errors)
-                .Where(f => f != null)
-                .ToList();
+        if (!failures.Any()) return next();
 
-            if(!failures.Any()) return next();
-
-            throw new ValidationException(failures);
-        }
+        throw new ValidationException(failures);
     }
 }
